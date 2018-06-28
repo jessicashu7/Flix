@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray *movies;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -104,6 +105,7 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    [self.activityIndicator startAnimating];
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     UITableViewCell *tappedCell = sender;
@@ -113,7 +115,8 @@
     DetailCellViewController *detailCellViewController = [segue destinationViewController];
     detailCellViewController.movie = movie;
     NSLog(@"tapping on a movie!");
-
+    NSLog(@"animating");
+    [self.activityIndicator stopAnimating];
 
 }
 @end
