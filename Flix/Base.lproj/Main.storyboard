@@ -89,6 +89,10 @@
                                         <rect key="frame" x="0.0" y="-64" width="375" height="222"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uM7-7G-Gxj">
+                                        <rect key="frame" x="8" y="89" width="99" height="154"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FXX-bO-lMZ">
                                         <rect key="frame" x="115" y="166" width="252" height="53"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -103,10 +107,13 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uM7-7G-Gxj">
-                                        <rect key="frame" x="8" y="89" width="99" height="154"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZBO-sJ-eLJ">
+                                        <rect key="frame" x="115" y="209" width="252" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                             </scrollView>
                         </subviews>
@@ -116,6 +123,7 @@
                     <connections>
                         <outlet property="backdropView" destination="tvm-lf-kFf" id="QRy-je-G0N"/>
                         <outlet property="posterView" destination="uM7-7G-Gxj" id="xHQ-aa-Xff"/>
+                        <outlet property="releaseDateLabel" destination="ZBO-sJ-eLJ" id="if0-oj-pBn"/>
                         <outlet property="synopsisLabel" destination="fxI-gF-w7A" id="6sB-rD-oVm"/>
                         <outlet property="titleLabel" destination="FXX-bO-lMZ" id="U6n-Pe-R5o"/>
                     </connections>
