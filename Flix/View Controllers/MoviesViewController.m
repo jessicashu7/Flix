@@ -10,14 +10,13 @@
 #import "MovieCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "DetailCellViewController.h"
-
+#import "SVProgressHUD.h"
 
 @interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray *movies;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -128,10 +127,9 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-
+    [SVProgressHUD show];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        [self.activityIndicator startAnimating];
-        [self fetchMovies];
+       // [self.activityIndicator startAnimating];
 
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
@@ -142,9 +140,11 @@
         DetailCellViewController *detailCellViewController = [segue destinationViewController];
         detailCellViewController.movie = movie;
         NSLog(@"tapping on a movie!");
-        
-        [self.activityIndicator stopAnimating];
-        
+        [NSThread sleepForTimeInterval:.15];
+        //[self.activityIndicator stopAnimating];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+        });
     });
 
 
