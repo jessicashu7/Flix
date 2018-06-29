@@ -47,7 +47,7 @@
             
 
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Network Error" message:@"Check your connection" preferredStyle:(UIAlertControllerStyleAlert)];
-            // create a cancel action
+           /* // create a cancel action
             UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
               style:UIAlertActionStyleCancel
             handler:^(UIAlertAction * _Nonnull action) {
@@ -56,7 +56,7 @@
             
             // add the cancel action to the alertController
             [alert addAction:cancelAction];
-            
+            */
             // create an OK action
             UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
             style:UIAlertActionStyleDefault
