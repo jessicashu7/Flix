@@ -60,7 +60,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="QlB-s5-TST">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="QlB-s5-TST">
                                 <rect key="frame" x="169" y="315" width="37" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="color" red="1" green="0.26026977528555406" blue="0.039386291440350107" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -71,6 +71,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Movies" id="icr-MN-f37"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="QlB-s5-TST" id="Qiq-BG-Wbn"/>
                         <outlet property="tableView" destination="HXl-Bu-u4E" id="LA8-dl-NcF"/>
                     </connections>
                 </viewController>

@@ -130,7 +130,6 @@
 				2924A6B320E40ABA00854CEE /* AppDelegate.h */,
 				2924A6B420E40ABA00854CEE /* AppDelegate.m */,
 				2924A6B920E40ABA00854CEE /* Main.storyboard */,
-				2924A6BC20E40ABB00854CEE /* Assets.xcassets */,
 				2924A6BE20E40ABB00854CEE /* LaunchScreen.storyboard */,
 				2924A6C120E40ABB00854CEE /* Info.plist */,
 				2924A6C220E40ABB00854CEE /* main.m */,
@@ -199,6 +198,7 @@
 		52821DECC6D847AD4F8D7663 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2924A6BC20E40ABB00854CEE /* Assets.xcassets */,
 				AE8FCEA5FEF343A295E0FFCC /* libPods-Flix.a */,
 				EE147FEDA103162ED9462599 /* libPods-FlixTests.a */,
 				6E53F2DC942A75EBF3B66634 /* libPods-FlixUITests.a */,

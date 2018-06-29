@@ -11,6 +11,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "DetailCellViewController.h"
 
+
 @interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -24,7 +25,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     NSLog(@"loading");
@@ -44,8 +44,31 @@
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil) {
-            NSLog(@"error");
             NSLog(@"%@", [error localizedDescription]);
+            
+
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Network Error" message:@"Check your connection" preferredStyle:(UIAlertControllerStyleAlert)];
+            // create a cancel action
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+              style:UIAlertActionStyleCancel
+            handler:^(UIAlertAction * _Nonnull action) {
+                // handle cancel response here. Doing nothing will dismiss the view.
+            }];
+            
+            // add the cancel action to the alertController
+            [alert addAction:cancelAction];
+            
+            // create an OK action
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
+            style:UIAlertActionStyleDefault
+            handler:^(UIAlertAction * _Nonnull action) {
+            // handle response here.
+                }];
+            // add the OK action to the alert controller
+            [alert addAction:okAction];
+            [self presentViewController:alert animated:YES completion:^{
+                // optional code for what happens after the alert controller has finished presenting
+            }];
         }
         else {
             NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
@@ -105,18 +128,25 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    [self.activityIndicator startAnimating];
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    UITableViewCell *tappedCell = sender;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
-    NSDictionary *movie = self.movies[indexPath.row];
-    
-    DetailCellViewController *detailCellViewController = [segue destinationViewController];
-    detailCellViewController.movie = movie;
-    NSLog(@"tapping on a movie!");
-    NSLog(@"animating");
-    [self.activityIndicator stopAnimating];
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        [self.activityIndicator startAnimating];
+        [self fetchMovies];
+
+        // Get the new view controller using [segue destinationViewController].
+        // Pass the selected object to the new view controller.
+        UITableViewCell *tappedCell = sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+        NSDictionary *movie = self.movies[indexPath.row];
+        
+        DetailCellViewController *detailCellViewController = [segue destinationViewController];
+        detailCellViewController.movie = movie;
+        NSLog(@"tapping on a movie!");
+        
+        [self.activityIndicator stopAnimating];
+        
+    });
+
 
 }
 @end
