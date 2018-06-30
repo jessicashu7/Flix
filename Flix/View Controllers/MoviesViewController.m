@@ -29,8 +29,17 @@
     NSLog(@"loading");
 
     // Do any additional setup after loading the view.
-    
+    [SVProgressHUD show];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
     [self fetchMovies];
+    [NSThread sleepForTimeInterval:1];
+        dispatch_async(dispatch_get_main_queue(), ^{
+           [SVProgressHUD dismiss];
+
+        });
+    
+    });
+    
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(fetchMovies)forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:self.refreshControl atIndex:0];
@@ -127,8 +136,7 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    [SVProgressHUD show];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+    
        // [self.activityIndicator startAnimating];
 
         // Get the new view controller using [segue destinationViewController].
@@ -140,12 +148,10 @@
         DetailCellViewController *detailCellViewController = [segue destinationViewController];
         detailCellViewController.movie = movie;
         NSLog(@"tapping on a movie!");
-        [NSThread sleepForTimeInterval:.15];
+        //[NSThread sleepForTimeInterval:.15];
         //[self.activityIndicator stopAnimating];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD dismiss];
-        });
-    });
+    
+    
 
 
 }

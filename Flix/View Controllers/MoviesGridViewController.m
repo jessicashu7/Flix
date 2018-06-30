@@ -55,10 +55,9 @@
             
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Network Error" message:@"Check your connection" preferredStyle:(UIAlertControllerStyleAlert)];
  
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
-                                                               style:UIAlertActionStyleDefault              handler:^(UIAlertAction * _Nonnull action) {
-                                                                 // handle response here.
-                                                             }];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"style:UIAlertActionStyleDefault              handler:^(UIAlertAction * _Nonnull action) {
+                 // handle response here.
+                 }];
             // add the OK action to the alert controller
             [alert addAction:okAction];
             [self presentViewController:alert animated:YES completion:^{
