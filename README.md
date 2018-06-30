@@ -55,5 +55,4 @@ List an 3rd party libraries, icons, graphics, or other assets you used in your a
 - [AFNetworking](https://github.com/AFNetworking/AFNetworking) - networking task library
 - [SVProgressHUD](https://github.com/SVProgressHUD/SVProgressHUD) - progress HUD library
 
-## License
 
