@@ -37,6 +37,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
+
 ![Alt Text](https://i.imgur.com/pDc3Wyc.gif)
 ![Alt Text](https://i.imgur.com/BrgD99U.gif)
 
