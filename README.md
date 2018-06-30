@@ -1,4 +1,4 @@
-# Project 2 - Flix
+# Codepath Project 2 - Flix
 
 Flix is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
