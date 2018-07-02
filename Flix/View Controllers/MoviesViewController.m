@@ -11,6 +11,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "DetailCellViewController.h"
 #import "SVProgressHUD.h"
+#import "Movie.h"
 
 @interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -83,10 +84,14 @@
             
             NSLog(@"%@", dataDictionary);
             
-            self.movies = dataDictionary[@"results"];
-            for (NSDictionary *movie in self.movies){
-                NSLog(@"%@", movie[@"title"]);
-            }
+            NSArray *dictionaries = dataDictionary[@"results"];
+            self.movies = [Movie moviesWithDictionaries:dictionaries];
+            
+            
+            //self.movies = dataDictionary[@"results"];
+            //for (NSDictionary *movie in self.movies){
+            //    NSLog(@"%@", movie[@"title"]);
+            //}
             [self.tableView reloadData];
             // TODO: Get the array of movies
             // TODO: Store the movies in a property to use elsewhere
@@ -108,26 +113,18 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"icellforrowatindexpath called");
+    NSLog(@"cellforrowatindexpath called");
     MovieCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MovieCell" forIndexPath:indexPath];
-    
     // NSLog(@"row: %d, section %d",
    //       indexPath.row, indexPath.section
     //      );
   //  cell.textLabel.text = [NSString stringWithFormat:@"row: %d, section %d",
    //                        indexPath.row, indexPath.section];
     
-    NSDictionary *movie = self.movies[indexPath.row];
-    cell.titleLabel.text = movie[@"title"];
-    cell.synopsisLabel.text = movie[@"overview"];
+    cell.movie = self.movies[indexPath.row];
+
     
-    NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
-    NSString *posterURLString = movie[@"poster_path"];
-    NSString *fullPosterURLString = [baseURLString stringByAppendingString:posterURLString];
-    
-    NSURL *posterURL  = [NSURL URLWithString:fullPosterURLString];
-    cell.posterView.image = nil;
-    [cell.posterView setImageWithURL:posterURL];
+
     return cell;
 }
 
@@ -143,7 +140,7 @@
         // Pass the selected object to the new view controller.
         UITableViewCell *tappedCell = sender;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
-        NSDictionary *movie = self.movies[indexPath.row];
+        Movie *movie = self.movies[indexPath.row];
         
         DetailCellViewController *detailCellViewController = [segue destinationViewController];
         detailCellViewController.movie = movie;

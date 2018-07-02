@@ -6,10 +6,11 @@
 //  Copyright © 2018 Jessica Shu. All rights reserved.
 //
 #import <UIKit/UIKit.h>
+#import "Movie.h"
 
 @interface DetailCellViewController : UIViewController
 
 
-@property (nonatomic, strong) NSDictionary *movie;
+@property (nonatomic, strong) Movie *movie;
 
 @end
