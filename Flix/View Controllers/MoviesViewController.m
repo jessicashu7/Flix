@@ -12,6 +12,7 @@
 #import "DetailCellViewController.h"
 #import "SVProgressHUD.h"
 #import "Movie.h"
+#import "MovieAPIManager.h"
 
 @interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -48,59 +49,55 @@
 }
 
 - (void)fetchMovies {
-    NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil) {
-            NSLog(@"%@", [error localizedDescription]);
-            
+    MovieAPIManager *manager = [MovieAPIManager new];
+    [manager fetchNowPlaying:^(NSArray *movies, NSError *error) {
+        
+        if (error) {
+            [self noNetworkAlert];
+            [self.refreshControl endRefreshing];
 
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Network Error" message:@"Check your connection" preferredStyle:(UIAlertControllerStyleAlert)];
-           /* // create a cancel action
-            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
-              style:UIAlertActionStyleCancel
-            handler:^(UIAlertAction * _Nonnull action) {
-                // handle cancel response here. Doing nothing will dismiss the view.
-            }];
-            
-            // add the cancel action to the alertController
-            [alert addAction:cancelAction];
-            */
-            // create an OK action
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
-            style:UIAlertActionStyleDefault
-            handler:^(UIAlertAction * _Nonnull action) {
-            // handle response here.
-                }];
-            // add the OK action to the alert controller
-            [alert addAction:okAction];
-            [self presentViewController:alert animated:YES completion:^{
-                // optional code for what happens after the alert controller has finished presenting
-            }];
         }
-        else {
-            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            
-            NSLog(@"%@", dataDictionary);
-            
-            NSArray *dictionaries = dataDictionary[@"results"];
-            self.movies = [Movie moviesWithDictionaries:dictionaries];
-            
-            
-            //self.movies = dataDictionary[@"results"];
-            //for (NSDictionary *movie in self.movies){
-            //    NSLog(@"%@", movie[@"title"]);
-            //}
+        else if (movies)
+        {
+            self.movies = movies;
             [self.tableView reloadData];
-            // TODO: Get the array of movies
-            // TODO: Store the movies in a property to use elsewhere
-            // TODO: Reload your table view data
         }
+        
+        NSLog(@"end refreshing");
         [self.refreshControl endRefreshing];
     }];
-    [task resume];
 }
+
+- (void)noNetworkAlert{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Network Error" message:@"Check your connection" preferredStyle:(UIAlertControllerStyleAlert)];
+    /* // create a cancel action
+     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+     style:UIAlertActionStyleCancel
+     handler:^(UIAlertAction * _Nonnull action) {
+     // handle cancel response here. Doing nothing will dismiss the view.
+     }];
+     
+     // add the cancel action to the alertController
+     [alert addAction:cancelAction];
+     */
+    // create an OK action
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+                                                         // handle response here.
+                                                         NSLog(@"handle ok");
+                                                         [self.refreshControl endRefreshing];
+                                                         NSLog(@"supposedly end refreshing");
+                                                     }];
+    // add the OK action to the alert controller
+    [alert addAction:okAction];
+    [self presentViewController:alert animated:YES completion:^{
+        // optional code for what happens after the alert controller has finished presenting
+        NSLog(@"end present view controller");
+
+    }];
+}
+    
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
